@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Usuário do sistema",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "createdAt"]
+    },
+    "DiagnosticResult": {
+      "title": "DiagnosticResult",
+      "description": "Resultado do diagnóstico estratégico",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "companyName": { "type": "string" },
+        "quizResponses": { "type": "string" },
+        "generalScore": { "type": "number" },
+        "readinessScore": { "type": "number" },
+        "efficiencyScore": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "companyName", "quizResponses", "generalScore", "readinessScore", "efficiencyScore", "createdAt"]
+    },
+    "MeetingRequest": {
+      "title": "MeetingRequest",
+      "description": "Solicitação de reunião",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "contactName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "preferredTime": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["contactName", "email", "phone", "preferredTime", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": { "$ref": "User" },
+      "description": "Perfil do usuário"
+    },
+    "diagnosticResults/{resultId}": {
+      "schema": { "$ref": "DiagnosticResult" },
+      "description": "Resultados de diagnósticos"
+    },
+    "meetingRequests/{requestId}": {
+      "schema": { "$ref": "MeetingRequest" },
+      "description": "Solicitações de reunião"
+    }
+  }
+}
