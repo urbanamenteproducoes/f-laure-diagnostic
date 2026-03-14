@@ -27,7 +27,7 @@ export interface QuizOption {
 
 export interface QuizQuestionCondition {
   field: string;
-  operator: 'equals' | 'not_equals' | 'contains' | 'not_contains';
+  operator: 'equals' | 'not_equals' | 'contains' | 'not_contains' | 'in' | 'not_in';
   value: any;
 }
 
@@ -38,6 +38,7 @@ export interface QuizQuestion {
   placeholder?: string;
   options?: QuizOption[];
   condition?: QuizQuestionCondition;
+  or_conditions?: QuizQuestionCondition[];
 }
 
 export interface QuizStep {

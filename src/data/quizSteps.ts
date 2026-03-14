@@ -151,6 +151,10 @@ export const quizSteps: QuizStep[] = [
           { label: 'Anúncios Pagos (Meta, Google)', value: 'paid_ads' },
           { label: 'SEO / Busca no Google', value: 'seo' },
           { label: 'Indicações / Boca a Boca', value: 'referrals' }
+        ],
+        or_conditions: [
+          { field: 'website', operator: 'not_equals', value: 'none' },
+          { field: 'social', operator: 'not_contains', value: 'none' }
         ]
       },
       {

@@ -27,25 +27,38 @@ export default function Quiz({ onComplete, onCancel }: Props) {
     const answer = currentAnswers[field];
 
     switch (operator) {
-      case 'equals':
-        return answer === value;
-      case 'not_equals':
-        return answer !== value;
-      case 'contains':
-        return Array.isArray(answer) && answer.includes(value);
-      case 'not_contains':
-        return Array.isArray(answer) && !answer.includes(value);
-      default:
-        return true;
+      case 'equals': return answer === value;
+      case 'not_equals': return answer !== value;
+      case 'contains': return Array.isArray(answer) && answer.includes(value);
+      case 'not_contains': return Array.isArray(answer) && !answer.includes(value);
+      case 'in': return Array.isArray(value) && value.includes(answer);
+      case 'not_in': return Array.isArray(value) && !value.includes(answer);
+      default: return true;
     }
   };
 
-  const activeSteps = quizSteps.filter(s => s.questions.some(q => checkCondition(q.condition)));
+  const checkQuestionConditions = (q: any, currentAnswers: any = answers) => {
+    if (q.condition && !checkCondition(q.condition, currentAnswers)) return false;
+    if (q.or_conditions && q.or_conditions.length > 0) {
+      if (!q.or_conditions.some((cond: any) => checkCondition(cond, currentAnswers))) return false;
+    }
+    return true;
+  };
+
+  const activeSteps = quizSteps.filter(s => s.questions.some(q => checkQuestionConditions(q)));
   
   // Guard clause if activeSteps changes abruptly
   const validStepIdx = Math.min(currentStepIdx, activeSteps.length - 1);
   const step = activeSteps[validStepIdx];
-  const progress = ((validStepIdx) / activeSteps.length) * 100;
+
+  const allVisibleQuestions = activeSteps.flatMap(s => s.questions.filter(q => checkQuestionConditions(q)));
+  const answeredCount = allVisibleQuestions.filter(q => {
+    const val = answers[q.id];
+    if (q.type === 'multiple_choice') return Array.isArray(val) && val.length > 0;
+    return val !== undefined && val !== '';
+  }).length;
+  
+  const progress = allVisibleQuestions.length > 0 ? (answeredCount / allVisibleQuestions.length) * 100 : 0;
 
   const handleAnswer = (questionId: string, value: any) => {
     if (questionId === 'contact_email') {
@@ -81,13 +94,15 @@ export default function Quiz({ onComplete, onCancel }: Props) {
   };
 
 
-  const visibleQuestions = step.questions.filter(q => checkCondition(q.condition));
+  const visibleQuestions = step.questions.filter(q => checkQuestionConditions(q));
 
   const isStepComplete = visibleQuestions.every(q => {
     const val = answers[q.id];
     if (q.type === 'multiple_choice') return Array.isArray(val) && val.length > 0;
     return val !== undefined && val !== '';
   });
+  
+  const isIncompleteGlobally = answeredCount < allVisibleQuestions.length;
 
   const StepIcon = step.icon && iconMap[step.icon] ? iconMap[step.icon] : Layers;
 
@@ -105,8 +120,8 @@ export default function Quiz({ onComplete, onCancel }: Props) {
 
         <div className="flex flex-col gap-3 mb-10">
           <div className="flex justify-between items-end">
-            <p className="text-white text-lg font-semibold">Passo {currentStepIdx + 1} de {quizSteps.length}</p>
-            <p className="text-primary text-sm font-bold">{Math.round(progress)}% Concluído</p>
+            <p className="text-white text-lg font-semibold">Passo {validStepIdx + 1} de {activeSteps.length}</p>
+            <p className="text-primary text-sm font-bold">{Math.round(progress)}% Preenchido</p>
           </div>
           <div className="rounded-full bg-slate-800 h-2.5 overflow-hidden">
             <motion.div 
@@ -250,22 +265,28 @@ export default function Quiz({ onComplete, onCancel }: Props) {
         </AnimatePresence>
 
         {/* Footer Navigation */}
-        <div className="flex items-center justify-between pt-10 mt-10 border-t border-slate-800">
-          <button 
-            onClick={handleBack}
-            className="flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-slate-400 hover:bg-slate-800 transition-all"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            Voltar
-          </button>
-          <button 
-            onClick={handleNext}
-            disabled={!isStepComplete}
-            className="flex items-center gap-2 px-10 py-3 rounded-lg font-bold bg-primary text-white shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
-          >
-            {currentStepIdx === quizSteps.length - 1 ? 'Gerar Relatório' : 'Continuar'}
-            <ArrowRight className="w-5 h-5" />
-          </button>
+        <div className="flex flex-col gap-4 mt-10">
+          {validStepIdx === activeSteps.length - 1 && isIncompleteGlobally && (
+             <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-4 text-center">
+                <p className="text-rose-400 font-medium text-sm">O seu diagnóstico está incompleto ({Math.round(progress)}% preenchido). Você pode voltar para preencher mais detalhes ou enviar mesmo assim.</p>
+             </div>
+          )}
+          <div className="flex items-center justify-between pt-6 border-t border-slate-800">
+            <button 
+              onClick={handleBack}
+              className="flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-slate-400 hover:bg-slate-800 transition-all"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              Voltar
+            </button>
+            <button 
+              onClick={handleNext}
+              className="flex items-center gap-2 px-10 py-3 rounded-lg font-bold bg-primary text-white shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none"
+            >
+              {validStepIdx === activeSteps.length - 1 ? 'Gerar Relatório' : 'Continuar'}
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
