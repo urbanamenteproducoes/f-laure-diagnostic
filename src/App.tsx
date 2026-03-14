@@ -34,7 +34,7 @@ export default function App() {
     setView('processing');
   };
 
-  const handleProcessingComplete = () => {
+  const handleProcessingComplete = async () => {
     const resultData = generateDiagnostic(answers);
     const newDiagnostic: DiagnosticResult = {
       id: Math.random().toString(36).substr(2, 9),
@@ -48,6 +48,34 @@ export default function App() {
     setDiagnostics(updatedDiagnostics);
     localStorage.setItem('f_laure_diagnostics', JSON.stringify(updatedDiagnostics));
     
+    // Tentar notificar o admin localmente via Notificações de Navegador
+    if ("Notification" in window) {
+      if (Notification.permission === "granted") {
+        new Notification("F-Laure: Novo Diagnóstico Finalizado!", {
+          body: `Score: ${newDiagnostic.scores.overall}% - ID: ${newDiagnostic.id}`,
+          icon: "/favicon.ico"
+        });
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission();
+      }
+    }
+
+    // Disparar envio de e-mail via Vercel Serverless para produtorahc@gmail.com
+    try {
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          diagnosticId: newDiagnostic.id,
+          diagnosticScore: newDiagnostic.scores.overall,
+          companyName: answers.companyName || answers['1'] || 'Empresa Anônima',
+          resultData: newDiagnostic
+        })
+      });
+    } catch (e) {
+      console.warn("API de email não configurada em dev / falhou:", e);
+    }
+
     setView('report');
   };
 
