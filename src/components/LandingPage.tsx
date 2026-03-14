@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Layers, ShieldCheck, Clock, CheckCircle2, Trophy, Star, ArrowRight, Activity, Users, Lock, ChevronRight, Zap } from 'lucide-react';
+import { Layers, ShieldCheck, Clock, CheckCircle2, Trophy, Star, ArrowRight, Activity, Users, Lock, ChevronRight, Zap, Video, Calendar, Music, Megaphone, PenTool, LayoutTemplate } from 'lucide-react';
 
 interface Props {
   onStart: () => void;
@@ -255,6 +255,33 @@ export default function LandingPage({ onStart, onAdmin }: Props) {
           </div>
         </section>
 
+        {/* ECOSSISTEMA 360 */}
+        <section className="px-6 lg:px-20 py-24 bg-[#0d141d] border-t border-white/5">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-6">Ecossistema F-Laure 360º</h2>
+              <p className="text-slate-400 text-lg max-w-3xl mx-auto">Não somos apenas uma agência, somos uma produtora e assessoria completa. Integramos as principais vertentes da arte, mídia e negócios para blindar a sua marca e escalar sua carreira ou projeto corporativo.</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { icon: Video, title: "Audiovisual Master", desc: "Produção de filmes, comerciais, videoclipes, curtas, médias, longas e ensaios fotográficos de altíssimo nível." },
+                { icon: Megaphone, title: "Marketing & Entretenimento", desc: "Gestão de tráfego, social media IA, sites, blogs, além de produção artística de Shows e Espetáculos de Dança." },
+                { icon: Users, title: "Agenciamento (Casting)", desc: "Gestão de carreira para atores, cantores, dançarinos, bandas musicais, grupos de pagode, e corais." },
+                { icon: Calendar, title: "Eventos & Leis Culturais", desc: "Produção de festas e captação de recursos especializada via Leis de Incentivo, Editais e Projetos Sociais (Rouanet, etc)." }
+              ].map((item, i) => (
+                <div key={i} className="bg-slate-800/20 border border-slate-700/30 p-8 rounded-3xl hover:border-blue-500/30 transition-colors group">
+                  <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
+                    <item.icon className="w-7 h-7 text-blue-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ESTRUTURA DE PLANOS (Anchor Pricing, Scarcity, Most Popular badge) */}
         <section className="px-6 lg:px-20 py-24 bg-[#0a1017]" id="planos">
           <div className="max-w-7xl mx-auto flex flex-col items-center">
@@ -277,7 +304,7 @@ export default function LandingPage({ onStart, onAdmin }: Props) {
                   </p>
                 </div>
                 <ul className="flex flex-col gap-4 mb-8">
-                  {['Diagnóstico Operacional', 'Design de Landing Page Base', 'Hospedagem Dedicada', 'Suporte em 48h'].map((ft, i) => (
+                  {['Identidade Visual e Social Media Base', 'Design de Landing Page / Blog', 'Ensaios Fotográficos Iniciais', 'Suporte em 48h'].map((ft, i) => (
                     <li key={i} className="flex items-center gap-3 text-slate-300 text-sm">
                       <CheckCircle2 className="w-4 h-4 text-emerald-500" /> {ft}
                     </li>
@@ -305,7 +332,7 @@ export default function LandingPage({ onStart, onAdmin }: Props) {
                   </p>
                 </div>
                 <ul className="flex flex-col gap-4 mb-8">
-                  {['Tudo do Fundação', 'Funis de Neuromarketing Ativos', 'Automações de CRM Inteligentes', 'A/B Testing Contínuo', 'Suporte Prioritário VIP (12h)'].map((ft, i) => (
+                  {['Tudo do Fundação', 'Produção Audiovisual e Comercial', 'Agenciamento e Gestão de Carreira', 'Automação Estratégica IA', 'Eventos e Captação de Recursos (Leis)'].map((ft, i) => (
                     <li key={i} className="flex items-start gap-3 text-white text-sm">
                       <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" /> {ft}
                     </li>
@@ -333,7 +360,7 @@ export default function LandingPage({ onStart, onAdmin }: Props) {
                   </p>
                 </div>
                 <ul className="flex flex-col gap-4 mb-8">
-                  {['Ecossistema Digital Completo', 'Múltiplas Integrações Complexas', 'Dashboard de BI em Tempo Real', 'Time Dedicado (Squad)', 'Gestão de Crise'].map((ft, i) => (
+                  {['Audiovisual (Filmes, Curtas e Longas)', 'Captação Avançada (Leis e Editais)', 'Ecossistema Tecnológico Interligado', 'Produção de Mega Eventos e Shows', 'Time Dedicado Master (Atores/Músicos)'].map((ft, i) => (
                     <li key={i} className="flex items-center gap-3 text-slate-300 text-sm">
                       <CheckCircle2 className="w-4 h-4 text-emerald-500" /> {ft}
                     </li>
