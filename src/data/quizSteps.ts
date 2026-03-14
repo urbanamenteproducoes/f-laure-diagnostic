@@ -9,13 +9,24 @@ export const quizSteps: QuizStep[] = [
     questions: [
       {
         id: 'profile_type',
-        label: 'Ecolha a categoria que melhor representa seu projeto/situação:',
+        label: 'Escolha a categoria que melhor representa seu momento atual:',
         type: 'single_choice',
         options: [
           { label: 'Empresa / Negócio Tradicional', value: 'business', description: 'Comércio, Indústria, Hotelaria, Software, Serviços (B2B/B2C).' },
-          { label: 'Artista / Influenciador', value: 'artist', description: 'Ator, Cantor, Dançarino, Criador de Conteúdo, Músico.' },
-          { label: 'Projeto Cultural / Produtor de Eventos', value: 'event', description: 'Produção de Festas, Shows, Festivais e Editais Culturais.' }
+          { label: 'Artista / Profissional Criativo', value: 'artist', description: 'Atores, Cantores, Dançarinos, Músicos, Criadores de Conteúdo.' },
+          { label: 'Projeto Cultural / Produtor de Eventos', value: 'event', description: 'Produção de Festas, Shows, Festivais e Projetos de Editais.' }
         ]
+      },
+      {
+        id: 'artist_intent',
+        label: 'Como artista, qual é a sua intenção principal com a conexão de hoje?',
+        type: 'single_choice',
+        options: [
+          { label: 'Banco de Talentos (Trabalho)', value: 'casting', description: 'Quero cadastrar meu Release/Portfólio no Casting para ser chamado para gravações e elencos.' },
+          { label: 'Sou o meu próprio Projeto', value: 'production', description: 'Estou buscando os serviços da F-Laure para produzir a minha carreira, marketing ou conteúdos.' },
+          { label: 'Unir Vínculo (Ambos)', value: 'both', description: 'Quero estruturar a minha carreira com ajuda de vocês e também estar nos elencos da casa.' }
+        ],
+        condition: { field: 'profile_type', operator: 'equals', value: 'artist' }
       }
     ]
   },
