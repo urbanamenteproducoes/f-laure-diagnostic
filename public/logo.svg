@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#fcb93d" />
+  <g transform="translate(0, -50)">
+    <circle cx="256" cy="220" r="130" fill="none" stroke="white" stroke-width="14" />
+    <!-- Top Rect -->
+    <rect x="190" y="125" width="55" height="25" rx="8" fill="white" />
+    <!-- Body -->
+    <rect x="150" y="145" width="135" height="95" rx="14" fill="white" />
+    <!-- Lens Cutout -->
+    <circle cx="217" cy="192" r="32" fill="#fcb93d" />
+    <circle cx="217" cy="192" r="14" fill="white" />
+    <!-- Video Triangle -->
+    <polygon points="270,170 335,145 335,240 270,215" fill="white" stroke="white" stroke-width="10" stroke-linejoin="round" />
+  </g>
+  
+  <text x="320" y="360" font-family="'Oswald', 'Impact', 'Bebas Neue', 'Segoe UI Black', Arial, sans-serif" font-size="115" font-weight="900" transform="scale(0.8, 1.2)" fill="#111" text-anchor="middle" letter-spacing="0">F-LAURE</text>
+  
+  <text x="256" y="465" font-family="'Montserrat', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="800" fill="#111" text-anchor="middle" letter-spacing="4">CREATIVE SERVICES</text>
+</svg>

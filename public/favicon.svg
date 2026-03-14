@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#fcb93d" rx="100" />
+  
+  <circle cx="256" cy="256" r="185" fill="none" stroke="white" stroke-width="20" />
+  
+  <!-- Top Rect -->
+  <rect x="160" y="130" width="80" height="36" rx="10" fill="white" />
+  
+  <!-- Body -->
+  <rect x="100" y="150" width="195" height="135" rx="20" fill="white" />
+  
+  <!-- Lens Cutout -->
+  <circle cx="197" cy="218" r="46" fill="#fcb93d" />
+  
+  <!-- Lens Inner -->
+  <circle cx="197" cy="218" r="20" fill="white" />
+  
+  <!-- Video Triangle -->
+  <polygon points="275,185 365,150 365,285 275,250" fill="white" stroke="white" stroke-width="16" stroke-linejoin="round" />
+
+</svg>
