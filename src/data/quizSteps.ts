@@ -2,69 +2,90 @@ import { QuizStep } from '../types';
 
 export const quizSteps: QuizStep[] = [
   {
+    id: 'profile',
+    title: 'Como você se define?',
+    subtitle: 'Nós personalizamos a avaliação. Qual é o seu modelo de atuação hoje?',
+    icon: 'Target',
+    questions: [
+      {
+        id: 'profile_type',
+        label: 'Ecolha a categoria que melhor representa seu projeto/situação:',
+        type: 'single_choice',
+        options: [
+          { label: 'Empresa / Negócio Tradicional', value: 'business', description: 'Comércio, Indústria, Hotelaria, Software, Serviços (B2B/B2C).' },
+          { label: 'Artista / Influenciador', value: 'artist', description: 'Ator, Cantor, Dançarino, Criador de Conteúdo, Músico.' },
+          { label: 'Projeto Cultural / Produtor de Eventos', value: 'event', description: 'Produção de Festas, Shows, Festivais e Editais Culturais.' }
+        ]
+      }
+    ]
+  },
+  {
     id: 'identity',
-    title: 'Identidade da Empresa',
-    subtitle: 'Conte-nos um pouco sobre o seu negócio.',
+    title: 'Identidade e Proposta de Valor',
+    subtitle: 'Conte-nos sobre a essência do seu trabalho (Metodologia Canvas).',
     icon: 'Building2',
     questions: [
-      { id: 'companyName', label: 'Nome da Empresa', type: 'text', placeholder: 'ex: Acme Corp' },
-      { id: 'segment', label: 'Segmento de Atuação', type: 'text', placeholder: 'ex: Varejo, Tecnologia, Serviços' },
+      { id: 'companyName', label: 'Nome (Organização / Artista / Projeto)', type: 'text', placeholder: 'ex: Acme Corp, F-Laure, João Silva' },
+      { id: 'segment', label: 'Segmento / Nicho de Atuação', type: 'text', placeholder: 'ex: Hotelaria, Música Pop, Tecnologia' },
       {
         id: 'years',
-        label: 'Anos de operação',
+        label: 'Aproximadamente, quanto tempo de atuação / mercado?',
         type: 'single_choice',
         options: [
           { label: 'Começando agora', value: '0-1' },
-          { label: '1-3 anos', value: '1-3' },
-          { label: '3-10 anos', value: '3-10' },
+          { label: '1 a 3 anos', value: '1-3' },
+          { label: '3 a 10 anos', value: '3-10' },
           { label: 'Mais de 10 anos', value: '10+' }
         ]
       },
       {
         id: 'b2b_b2c',
-        label: 'Quem são seus principais clientes?',
+        label: 'Quem é o seu principal público / consumidor?',
         type: 'single_choice',
         options: [
-          { label: 'B2B (Outras Empresas)', value: 'b2b' },
-          { label: 'B2C (Consumidores)', value: 'b2c' },
-          { label: 'Ambos B2B e B2C', value: 'both' }
+          { label: 'B2B (Outras Empresas / Contratantes)', value: 'b2b' },
+          { label: 'B2C (Consumidores Finais / Fãs / Público)', value: 'b2c' },
+          { label: 'B2G (Governo / Patrocinadores)', value: 'b2g' },
+          { label: 'Múltiplos (Um mix entre empresas e fãs)', value: 'both' }
         ]
       },
       {
         id: 'main_product',
-        label: 'Qual é o seu principal produto ou serviço?',
+        label: 'Qual é o seu principal Produto, Serviço ou Espetáculo?',
         type: 'text',
-        placeholder: 'ex: Software SaaS, Consultoria, Roupas'
+        placeholder: 'ex: Software SaaS, Hospedagem, Álbum Musical'
       },
       {
         id: 'portfolio_links',
         label: 'Links Importantes (Portfólios, Vídeos, Drive, Materiais Anteriores)',
         type: 'text',
-        placeholder: 'Cole aqui os links para analisarmos seu histórico (Opcional)'
+        placeholder: 'Cole aqui links para analisarmos seu histórico (Opcional)'
       }
     ]
   },
   {
     id: 'specialty_funding',
-    title: 'Especialidade e Fomento',
-    subtitle: 'Detalhes sobre sua atuação artística e captação de recursos.',
+    title: 'Fomento e Captação Cultural',
+    subtitle: 'Nós conectamos arte e negócios através das leis de incentivo.',
     icon: 'Palette',
     questions: [
       { 
         id: 'artistic_specialty', 
-        label: 'Qual a sua especialidade artística ou literária? (ex: casting, dança, literatura)', 
+        label: 'Qual a sua Especialidade Artística ou Tema do Evento?', 
         type: 'text', 
-        placeholder: 'ex: Casting de atores, Dança contemporânea, Literatura' 
+        placeholder: 'ex: Dança Contemporânea, Festival de Jazz, Gravação de Longa',
+        condition: { field: 'profile_type', operator: 'not_equals', value: 'business' } 
       },
       {
         id: 'funding_status',
-        label: 'Como está sua experiência com captação de recursos?',
+        label: 'Qual sua experiência com Captação (Leis Rouanet, Paulo Gustavo, etc)?',
         type: 'single_choice',
         options: [
-          { label: 'Já captei recursos via editais', value: 'already_funded' },
-          { label: 'Tenho interesse em captar via leis de incentivo', value: 'interested_incentive' },
-          { label: 'Ainda não tenho experiência', value: 'no_experience' }
-        ]
+          { label: 'Já tenho histórico aprovado/captado em editais', value: 'already_funded' },
+          { label: 'Tenho interesse forte em iniciar captação subsidiada', value: 'interested_incentive' },
+          { label: 'Não possuo experiência e vivo 100% de bilheteria/venda', value: 'no_experience' }
+        ],
+        condition: { field: 'profile_type', operator: 'not_equals', value: 'business' }
       }
     ]
   },
@@ -194,8 +215,8 @@ export const quizSteps: QuizStep[] = [
   },
   {
     id: 'automation_sales',
-    title: 'Automação e Vendas',
-    subtitle: 'Quão eficiente é o seu processo de captura de leads e vendas?',
+    title: 'Captação, Automação e Conversão',
+    subtitle: 'Análise do seu processo de atração de público, ingressos ou vendas organizacionais.',
     icon: 'Zap',
     questions: [
       {
@@ -227,7 +248,7 @@ export const quizSteps: QuizStep[] = [
       },
       {
         id: 'sales_funnel',
-        label: 'Você tem um funil de vendas mapeado?',
+        label: 'Você tem um Funil de Vendas ou Jornada do Público mapeada?',
         type: 'single_choice',
         options: [
           { label: 'Sim, etapas claras', value: 'yes' },
@@ -256,7 +277,7 @@ export const quizSteps: QuizStep[] = [
     questions: [
       {
         id: 'team_size',
-        label: 'Tamanho da Empresa (Funcionários)',
+        label: 'Tamanho da Organização / Equipe do Projeto',
         type: 'single_choice',
         options: [
           { label: '1-5 (Micro)', value: '1-5' },
@@ -277,7 +298,7 @@ export const quizSteps: QuizStep[] = [
       },
       {
         id: 'sales_team',
-        label: 'Você tem uma equipe de vendas dedicada?',
+        label: 'Você tem uma equipe de Vendas / Relacionamento dedicada?',
         type: 'single_choice',
         options: [
           { label: 'Sim, equipe completa', value: 'full' },
@@ -310,10 +331,10 @@ export const quizSteps: QuizStep[] = [
         label: 'Objetivo principal para os próximos 6 meses',
         type: 'single_choice',
         options: [
-          { label: 'Aumentar Vendas', value: 'sales', description: 'Crescimento direto de receita e otimização de conversão.' },
-          { label: 'Aumentar Reconhecimento da Marca', value: 'brand', description: 'Alcançar mais pessoas e construir autoridade.' },
-          { label: 'Gerar Leads', value: 'leads', description: 'Construir um pipeline de prospects qualificados.' },
-          { label: 'Melhorar Eficiência', value: 'efficiency', description: 'Automatizar processos e economizar tempo.' }
+          { label: 'Aumentar Vendas / Bilheteria / Faturamento', value: 'sales', description: 'Crescimento direto de receita financeira e otimização de conversão.' },
+          { label: 'Aumentar Reconhecimento e Valor da Marca (Branding)', value: 'brand', description: 'Alcançar mais pessoas e construir autoridade / fama.' },
+          { label: 'Gerar Leads / Captar Parcerias Fortes', value: 'leads', description: 'Construir um pipeline de prospects qualificados ou parceiros de negócio.' },
+          { label: 'Melhorar Eficiência e Escala', value: 'efficiency', description: 'Automatizar processos operacionais para agilizar o negócio e produzir mais.' }
         ]
       },
       {

@@ -16,14 +16,36 @@ interface Props {
   onComplete: (answers: Record<string, any>) => void;
   onCancel: () => void;
 }
-
 export default function Quiz({ onComplete, onCancel }: Props) {
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<string, any>>({});
   const [emailError, setEmailError] = useState<string | null>(null);
 
-  const step = quizSteps[currentStepIdx];
-  const progress = ((currentStepIdx) / quizSteps.length) * 100;
+  const checkCondition = (condition?: any, currentAnswers: any = answers) => {
+    if (!condition) return true;
+    const { field, operator, value } = condition;
+    const answer = currentAnswers[field];
+
+    switch (operator) {
+      case 'equals':
+        return answer === value;
+      case 'not_equals':
+        return answer !== value;
+      case 'contains':
+        return Array.isArray(answer) && answer.includes(value);
+      case 'not_contains':
+        return Array.isArray(answer) && !answer.includes(value);
+      default:
+        return true;
+    }
+  };
+
+  const activeSteps = quizSteps.filter(s => s.questions.some(q => checkCondition(q.condition)));
+  
+  // Guard clause if activeSteps changes abruptly
+  const validStepIdx = Math.min(currentStepIdx, activeSteps.length - 1);
+  const step = activeSteps[validStepIdx];
+  const progress = ((validStepIdx) / activeSteps.length) * 100;
 
   const handleAnswer = (questionId: string, value: any) => {
     if (questionId === 'contact_email') {
@@ -43,39 +65,21 @@ export default function Quiz({ onComplete, onCancel }: Props) {
     }
     setEmailError(null);
 
-    if (currentStepIdx < quizSteps.length - 1) {
-      setCurrentStepIdx(prev => prev + 1);
+    if (validStepIdx < activeSteps.length - 1) {
+      setCurrentStepIdx(validStepIdx + 1);
     } else {
       onComplete(answers);
     }
   };
 
   const handleBack = () => {
-    if (currentStepIdx > 0) {
-      setCurrentStepIdx(prev => prev - 1);
+    if (validStepIdx > 0) {
+      setCurrentStepIdx(validStepIdx - 1);
     } else {
       onCancel();
     }
   };
 
-  const checkCondition = (condition?: any) => {
-    if (!condition) return true;
-    const { field, operator, value } = condition;
-    const answer = answers[field];
-
-    switch (operator) {
-      case 'equals':
-        return answer === value;
-      case 'not_equals':
-        return answer !== value;
-      case 'contains':
-        return Array.isArray(answer) && answer.includes(value);
-      case 'not_contains':
-        return Array.isArray(answer) && !answer.includes(value);
-      default:
-        return true;
-    }
-  };
 
   const visibleQuestions = step.questions.filter(q => checkCondition(q.condition));
 
