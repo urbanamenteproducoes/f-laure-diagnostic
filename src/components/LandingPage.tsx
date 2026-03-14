@@ -45,6 +45,7 @@ export default function LandingPage({ onStart, onAdmin }: Props) {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "F-Laure Diagnostic",
+    "url": "https://produtora.urbrasil.com",
     "applicationCategory": "BusinessApplication",
     "offers": {
       "@type": "AggregateOffer",
