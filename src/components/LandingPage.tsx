@@ -292,7 +292,37 @@ export default function LandingPage({ onStart, onAdmin }: Props) {
               Escolha a estrutura ideal para o seu momento atual. Todos os planos incluem nossa <span className="text-white font-bold">Garantia Blindada de 30 Dias</span>.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 w-full items-start">
+              
+              {/* PLANO GRATUITO: DIAGNÓSTICO E PARECER */}
+              <div className="bg-slate-800/30 border border-slate-700/50 rounded-3xl p-8 flex flex-col h-full relative">
+                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-700/80 text-white text-xs font-bold uppercase tracking-widest px-4 py-1 rounded-full whitespace-nowrap">
+                  Serviço Essencial
+                </div>
+                <h3 className="text-2xl font-bold text-slate-300 mb-2 mt-2">Diagnóstico Inicial</h3>
+                <p className="text-slate-400 text-sm mb-6 h-12">O primeiro e mais fundamental serviço. Parecer técnico da nossa equipe sobre o seu estado atual.</p>
+                <div className="mb-8 border-b border-slate-700/50 pb-8 mt-auto">
+                  <p className="text-slate-500 line-through text-xs mb-1">Preço Normal: R$ 500,00</p>
+                  <p className="text-emerald-400 text-4xl font-black">
+                    Gratuito
+                  </p>
+                </div>
+                <ul className="flex flex-col gap-4 mb-8">
+                  {['Avaliação completa de Gargalos', 'Análise de Material/Portfólio', 'Mapeamento de Leis/Editais aplicáveis', 'Draft de Estratégia Inicial'].map((ft, i) => (
+                    <li key={i} className="flex items-center gap-3 text-slate-300 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" /> {ft}
+                    </li>
+                  ))}
+                </ul>
+                <button 
+                  onClick={() => {
+                    trackConversion('Diagnostico CTA');
+                  }}
+                  className="w-full py-4 rounded-xl bg-orange-600/10 text-orange-400 border border-orange-500/20 font-bold hover:bg-orange-600/20 hover:border-orange-500/50 transition-colors mt-auto"
+                >
+                  Iniciar Avaliação
+                </button>
+              </div>
               {/* PLANO BASIC */}
               <div className="bg-slate-800/30 border border-slate-700 rounded-3xl p-8 flex flex-col">
                 <h3 className="text-2xl font-bold text-slate-300 mb-2">Fundação</h3>

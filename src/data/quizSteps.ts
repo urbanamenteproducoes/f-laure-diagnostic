@@ -35,6 +35,12 @@ export const quizSteps: QuizStep[] = [
         label: 'Qual é o seu principal produto ou serviço?',
         type: 'text',
         placeholder: 'ex: Software SaaS, Consultoria, Roupas'
+      },
+      {
+        id: 'portfolio_links',
+        label: 'Links Importantes (Portfólios, Vídeos, Drive, Materiais Anteriores)',
+        type: 'text',
+        placeholder: 'Cole aqui os links para analisarmos seu histórico (Opcional)'
       }
     ]
   },
