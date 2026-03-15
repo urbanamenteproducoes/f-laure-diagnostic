@@ -112,7 +112,7 @@ export default function Quiz({ onComplete, onCancel }: Props) {
       <div className="w-full max-w-3xl mx-auto px-6 py-8">
         <header className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
-            <img src="/favicon.svg" alt="F-Laure Logo" className="w-8 h-8 drop-shadow-lg" />
+            <img src="/favicon.png" alt="F-Laure Logo" className="w-8 h-8 rounded shadow-lg" />
             <h2 className="text-white font-bold text-xl tracking-tight">F-Laure / Hard Produções</h2>
           </div>
           <button onClick={onCancel} className="text-slate-400 hover:text-white">Cancelar</button>

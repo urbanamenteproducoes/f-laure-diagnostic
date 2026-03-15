@@ -77,7 +77,7 @@ export default function LandingPage({ onStart, onAdmin }: Props) {
       <header className="flex items-center justify-between px-6 lg:px-20 py-5 sticky top-0 bg-[#0f1823]/90 backdrop-blur-xl z-40 border-b border-white/5 transition-all">
         <div className="flex items-center gap-3 group cursor-pointer">
           <div className="transition-transform group-hover:scale-110">
-            <img src="/favicon.svg" alt="F-Laure Logo" className="w-9 h-9" />
+            <img src="/favicon.png" alt="F-Laure Logo" className="w-10 h-10 rounded-lg shadow-lg" />
           </div>
           <h2 className="text-white text-xl font-bold tracking-tight">F-Laure</h2>
         </div>
