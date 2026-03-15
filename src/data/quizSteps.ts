@@ -97,6 +97,35 @@ export const quizSteps: QuizStep[] = [
           { label: 'Não possuo experiência e vivo 100% de bilheteria/venda', value: 'no_experience' }
         ],
         condition: { field: 'profile_type', operator: 'not_equals', value: 'business' }
+      },
+      {
+        id: 'grant_intent',
+        label: 'Você tem o desejo de inscrever algum projeto em editais ou leis de incentivo agora?',
+        type: 'single_choice',
+        options: [
+          { label: 'Sim, tenho um projeto pronto', value: 'yes_ready' },
+          { label: 'Sim, mas preciso de ajuda para estruturar a ideia', value: 'yes_need_help' },
+          { label: 'No momento não', value: 'no' }
+        ],
+        condition: { field: 'profile_type', operator: 'not_equals', value: 'business' }
+      },
+      {
+        id: 'specific_grant',
+        label: 'Existe algum Edital ou Lei específica que você tem em mente?',
+        type: 'text',
+        placeholder: 'ex: Lei Rouanet, Edital Paulo Gustavo, Edital Local de Cultura...',
+        condition: { field: 'grant_intent', operator: 'contains', value: 'yes' }
+      },
+      {
+        id: 'grant_timeline',
+        label: 'Se não for inscrever agora, quando pretende iniciar esse processo?',
+        type: 'single_choice',
+        options: [
+          { label: 'Próximo semestre', value: 'next_semester' },
+          { label: 'Ano que vem', value: 'next_year' },
+          { label: 'Apenas quando surgir uma oportunidade específica', value: 'opportunity' }
+        ],
+        condition: { field: 'grant_intent', operator: 'equals', value: 'no' }
       }
     ]
   },
