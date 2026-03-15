@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Layers, ShieldCheck, Clock, CheckCircle2, Trophy, Star, ArrowRight, Activity, Users, Lock, ChevronRight, Zap, Video, Calendar, Music, Megaphone, PenTool, LayoutTemplate } from 'lucide-react';
+import { Menu, Layers, ShieldCheck, Clock, CheckCircle2, Trophy, Star, ArrowRight, Activity, Users, Lock, ChevronRight, Zap, Video, Calendar, Music, Megaphone, PenTool, LayoutTemplate } from 'lucide-react';
 
 interface Props {
   onStart: () => void;
@@ -60,39 +60,60 @@ export default function LandingPage({ onStart, onAdmin }: Props) {
       {/* Schema Markup for SEO */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }} />
 
-      {/* Urgency Banner */}
-      <div className="bg-orange-600 text-white px-4 py-2 text-center text-sm font-semibold flex items-center justify-center gap-4 flex-wrap z-50 relative shadow-lg shadow-orange-600/20">
-        <span className="flex items-center gap-2">
-          <Clock className="w-4 h-4 animate-pulse" />
-          ATENÇÃO: Oferta Especial encerra em:
-        </span>
-        <div className="flex gap-2 font-mono text-base bg-black/20 px-3 py-1 rounded">
-          <span>{String(timeLeft.hours).padStart(2, '0')}:</span>
-          <span>{String(timeLeft.minutes).padStart(2, '0')}:</span>
-          <span>{String(timeLeft.seconds).padStart(2, '0')}</span>
-        </div>
-      </div>
-
-      {/* Header */}
-      <header className="flex items-center justify-between px-6 lg:px-20 py-5 sticky top-0 bg-[#0f1823]/90 backdrop-blur-xl z-40 border-b border-white/5 transition-all">
-        <div className="flex items-center gap-3 group cursor-pointer">
-          <div className="transition-transform group-hover:scale-110">
-            <img src="/favicon.png" alt="F-Laure Logo" className="w-10 h-10 rounded-lg shadow-lg" />
+      {/* Sticky Navigation Container */}
+      <div className="sticky top-0 z-50 w-full">
+        {/* Urgency Banner */}
+        <div className="bg-gradient-to-r from-orange-600 to-amber-600 text-white px-4 py-2.5 text-center text-xs sm:text-sm font-bold flex items-center justify-center gap-3 relative shadow-lg">
+          <span className="flex items-center gap-2">
+            <Clock className="w-4 h-4 animate-pulse" />
+            VAGAS LIMITADAS: Diagnóstico Gratuito encerra em:
+          </span>
+          <div className="flex gap-1.5 font-mono text-base bg-black/30 px-2 py-0.5 rounded border border-white/10">
+            <span>{String(timeLeft.hours).padStart(2, '0')}:</span>
+            <span>{String(timeLeft.minutes).padStart(2, '0')}:</span>
+            <span>{String(timeLeft.seconds).padStart(2, '0')}</span>
           </div>
-          <h2 className="text-white text-xl font-bold tracking-tight">F-Laure</h2>
         </div>
-        <div className="flex items-center gap-6">
-          <button onClick={onAdmin} className="text-sm text-slate-400 hover:text-white transition-colors cursor-pointer hidden sm:block">
-            Área Restrita
-          </button>
-          <button 
-            onClick={() => trackConversion('Header CTA')}
-            className="flex items-center justify-center rounded-lg h-11 px-6 bg-blue-600 text-white text-sm font-bold transition-all active:scale-95 hover:bg-blue-500 shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(37,99,235,0.5)]"
-          >
-            Descobrir Agora
-          </button>
-        </div>
-      </header>
+
+        {/* Main Header */}
+        <header className="flex items-center justify-between px-6 lg:px-20 py-4 bg-[#0f1823]/95 backdrop-blur-md border-b border-white/10 transition-all">
+          <div className="flex items-center gap-3">
+            <img src="/favicon.png" alt="F-Laure Logo" className="w-10 h-10 rounded-xl shadow-xl shadow-blue-500/10 border border-white/10" />
+            <div className="flex flex-col leading-tight">
+              <h2 className="text-white text-lg font-black tracking-tighter uppercase">F-Laure</h2>
+              <span className="text-[10px] text-blue-400 font-bold uppercase tracking-[0.2em]">Creative Studio</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-8 mr-8">
+              <a href="#about" className="text-xs font-bold text-slate-400 hover:text-white transition-colors uppercase tracking-widest">Sobre</a>
+              <a href="#portfolio" className="text-xs font-bold text-slate-400 hover:text-white transition-colors uppercase tracking-widest">Portfólio</a>
+              <a href="#plans" className="text-xs font-bold text-slate-400 hover:text-white transition-colors uppercase tracking-widest">Planos</a>
+            </nav>
+
+            <button 
+              onClick={onAdmin} 
+              className="text-xs font-bold text-slate-400 hover:text-white transition-colors cursor-pointer hidden sm:block uppercase tracking-widest mr-4"
+            >
+              ADM
+            </button>
+
+            <button className="md:hidden p-2 text-slate-400 hover:text-white">
+              <Menu className="w-6 h-6" />
+            </button>
+
+            <button 
+              onClick={() => trackConversion('Header CTA')}
+              className="flex items-center justify-center rounded-xl h-11 px-6 bg-blue-600 text-white text-sm font-black transition-all active:scale-95 hover:bg-blue-500 shadow-xl shadow-blue-600/20"
+            >
+              <span className="sm:inline hidden">Iniciar Diagnóstico</span>
+              <span className="sm:hidden inline">Começar</span>
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </button>
+          </div>
+        </header>
+      </div>
 
       <main className="flex flex-col flex-1">
         
