@@ -39,6 +39,7 @@ export interface QuizQuestion {
   options?: QuizOption[];
   condition?: QuizQuestionCondition;
   or_conditions?: QuizQuestionCondition[];
+  description?: string;
 }
 
 export interface QuizStep {

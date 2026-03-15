@@ -385,10 +385,23 @@ export const quizSteps: QuizStep[] = [
         ]
       },
       {
-        id: 'contact_email',
-        label: 'Para onde devemos enviar seu relatório de diagnóstico detalhado?',
+        id: 'contact_instagram',
+        label: 'Qual é o seu @ do Instagram da marca/projeto?',
         type: 'text',
-        placeholder: 'seu@email.com'
+        placeholder: '@seu.perfil'
+      },
+      {
+        id: 'contact_whatsapp',
+        label: 'Qual é o seu WhatsApp de contato para recebermos você (com DDD)?',
+        type: 'text',
+        placeholder: '(XX) XXXXX-XXXX'
+      },
+      {
+        id: 'contact_email',
+        label: 'Qual é o seu melhor E-mail?',
+        type: 'text',
+        placeholder: 'seu@email.com',
+        description: 'Após avaliação, se aprovado, você receberá seu Login e Senha da área restrita por e-mail ou WhatsApp.'
       }
     ]
   }

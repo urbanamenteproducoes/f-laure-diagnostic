@@ -156,7 +156,10 @@ export default function Quiz({ onComplete, onCancel }: Props) {
             <div className="flex flex-col gap-8">
               {visibleQuestions.map(q => (
                 <div key={q.id} className="flex flex-col gap-4">
-                  <label id={`label-${q.id}`} className="text-white font-semibold text-lg">{q.label}</label>
+                  <div className="flex flex-col gap-2">
+                    <label id={`label-${q.id}`} className="text-white font-semibold text-lg">{q.label}</label>
+                    {q.description && <p className="text-slate-400 text-sm italic">{q.description}</p>}
+                  </div>
                   
                   {q.type === 'text' && (
                     <div className="flex flex-col gap-2">
