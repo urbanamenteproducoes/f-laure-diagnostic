@@ -16,7 +16,6 @@ export default function App() {
   const [answers, setAnswers] = useState<Record<string, any>>({});
   const [diagnostics, setDiagnostics] = useState<DiagnosticResult[]>([]);
   const [currentResult, setCurrentResult] = useState<DiagnosticResult | null>(null);
-
   // Load from localStorage on mount
   useEffect(() => {
     const saved = localStorage.getItem('f_laure_diagnostics');
@@ -27,6 +26,11 @@ export default function App() {
         console.error("Failed to parse saved diagnostics");
       }
     }
+  }, []);
+
+  // Expose view switcher to window for Admin component access
+  useEffect(() => {
+    (window as any).toggleClientView = () => setView('clientArea');
   }, []);
 
   const handleQuizComplete = (finalAnswers: Record<string, any>) => {
@@ -130,7 +134,7 @@ export default function App() {
           )}
           
           {view === 'clientArea' && (
-            <ClientArea />
+            <ClientArea onBack={() => setView('admin')} />
           )}
           
           {view === 'admin' && (

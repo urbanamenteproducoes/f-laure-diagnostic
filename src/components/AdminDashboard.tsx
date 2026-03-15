@@ -59,6 +59,12 @@ export default function AdminDashboard({ diagnostics, onBack, onViewResult }: Pr
           <h2 className="text-white text-lg font-bold tracking-tight">Painel de Administração</h2>
         </div>
         <div className="flex items-center gap-4">
+          <button 
+            onClick={() => (window as any).toggleClientView?.()}
+            className="flex items-center gap-2 px-4 py-2 bg-slate-800 text-slate-300 hover:text-white rounded-lg transition-colors border border-slate-700 text-sm font-bold"
+          >
+            Ver Área do Cliente
+          </button>
           <div className="flex items-center gap-2 text-slate-400">
             <Users className="w-5 h-5" />
             <span className="text-sm font-medium">{diagnostics.length} Leads</span>
